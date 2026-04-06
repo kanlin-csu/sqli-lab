@@ -1,0 +1,40 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: sqli-web
+    ports:
+      - "5987:80"
+    volumes:
+      - ./web:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: sqli-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sqli_lab
+      MYSQL_USER: sqli
+      MYSQL_PASSWORD: sqli123
+    command: --secure-file-priv=""
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: sqli-pma
+    ports:
+      - "5988:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+
+volumes:
+  db-data:
