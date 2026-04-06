@@ -1,0 +1,4 @@
+.claude/
+web/uploads/*
+!web/uploads/.gitkeep
+*.bak
