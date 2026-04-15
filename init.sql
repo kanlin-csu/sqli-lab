@@ -1,5 +1,8 @@
 SET NAMES utf8mb4;
 
+GRANT FILE ON *.* TO 'sqli'@'%';
+FLUSH PRIVILEGES;
+
 CREATE DATABASE IF NOT EXISTS sqli_lab;
 USE sqli_lab;
 
