@@ -13,5 +13,6 @@ header("Content-Type: text/html; charset=utf-8");
   <li><a href="items.php?id=1" target="_blank">🔍 items.php - Error-Based SQL Injection</a></li>
   <li><a href="outfile.php?id=1" target="_blank">📂 outfile.php - INTO OUTFILE WebShell 寫入</a></li>
   <li><a href="xxe.php" target="_blank">🌐 xxe.php - XXE Injection → SSRF 攻擊</a></li>
+  <li><a href="rfi.php" target="_blank">📡 rfi.php - Remote File Inclusion (RFI) 攻擊</a></li>
 </ul>
 <p>💡 請搭配 <code>sqlmap</code>、瀏覽器或 Burp Suite 等工具進行實測。</p>
