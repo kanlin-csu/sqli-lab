@@ -11,8 +11,8 @@ $id = $_GET['id'] ?? '';
 
 echo "<h2>🧪 multi_query() 示範 - Stacked SQL Injection 測試</h2>";
 
-$query = "SELECT title FROM items WHERE id = '$id'";
-echo "<p><strong>執行的 SQL：</strong><code>" . htmlspecialchars($query) . "</code></p>";
+$query = "SELECT title FROM items WHERE id = $id";
+echo "<p><strong>執行的 SQL：</strong><code>" . $query . "</code></p>";
 
 if ($mysqli->multi_query($query)) {
     do {

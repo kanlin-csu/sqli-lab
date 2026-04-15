@@ -12,8 +12,8 @@ $id = $_GET['id'] ?? '';
 echo "<h2>🔗 UNION-based SQL Injection 測試</h2>";
 
 if ($id !== '') {
-    $query = "SELECT id, name, description FROM products WHERE id = '$id'";
-    echo "<p><strong>執行的 SQL：</strong><code>" . htmlspecialchars($query) . "</code></p>";
+    $query = "SELECT id, name, description FROM products WHERE id = $id";
+    echo "<p><strong>執行的 SQL：</strong><code>" . $query . "</code></p>";
 
     $result = $mysqli->query($query);
 

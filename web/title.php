@@ -11,7 +11,7 @@ $id = $_GET['id'] ?? '';
 
 $query = "SELECT title FROM items WHERE id = '$id'";
 echo "<h2>🧪 Error-based SQL Injection 測試</h2>";
-echo "<p><strong>執行的 SQL：</strong><code>" . htmlspecialchars($query) . "</code></p>";
+echo "<p><strong>執行的 SQL：</strong><code>" . $query . "</code></p>";
 
 $result = $mysqli->query($query);
 

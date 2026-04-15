@@ -12,7 +12,7 @@ $id = $_GET['id'] ?? '';
 echo "<h2>💣 Stacked Queries SQL Injection 測試</h2>";
 
 $query = "SELECT title FROM items WHERE id = '$id'";
-echo "<p><strong>執行的 SQL：</strong><code>" . htmlspecialchars($query) . "</code></p>";
+echo "<p><strong>執行的 SQL：</strong><code>" . $query . "</code></p>";
 
 // 示範 stacked query 的限制
 // mysqli_query 不允許多語句；此頁面純粹用來教學顯示，不會真正執行 stacked payload
