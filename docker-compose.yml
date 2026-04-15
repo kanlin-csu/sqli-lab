@@ -30,7 +30,7 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: sqli-pma
     ports:
-      - "5988:80"
+      - "5989:80"
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
