@@ -1,6 +1,8 @@
 <?php
+header("Content-Type: text/html; charset=utf-8");
 session_start();
 $mysqli = new mysqli("db", "sqli", "sqli123", "sqli_lab");
+$mysqli->set_charset("utf8mb4");
 
 if ($mysqli->connect_error) {
     die("連線失敗: " . $mysqli->connect_error);
